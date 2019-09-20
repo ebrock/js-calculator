@@ -73,7 +73,7 @@ class Calculator extends React.Component {
     if (this.state.buffer.match(/\./g)) {
       console.log("Already have a decimal.");
     // Else if buffer is empty, append 0 before "."
-  } else if (this.state.buffer === "" || this.state.operator !== "") {
+    } else if (this.state.buffer === "" || this.state.operator !== "") {
       this.setState({
         buffer: this.state.buffer += "0.",
         expression: this.state.expression += this.state.operator + "0.",
@@ -83,6 +83,7 @@ class Calculator extends React.Component {
     } else {
       this.setState({
         buffer: this.state.buffer += ".",
+        expression: this.state.expression += this.state.operator + ".",
       });
     }
   }
