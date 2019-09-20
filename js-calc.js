@@ -12,6 +12,7 @@ class Calculator extends React.Component {
     this.handleZero = this.handleZero.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
+    this.handleMath = this.handleMath.bind(this);
   }
 
   componentDidUpdate() {
@@ -59,6 +60,8 @@ class Calculator extends React.Component {
     } else {
       this.setState({
         buffer: this.state.buffer += value,
+        expression: this.state.expression += this.state.operator + value,
+        operator: ""
       })
     }
   }
@@ -70,9 +73,10 @@ class Calculator extends React.Component {
     if (this.state.buffer.match(/\./g)) {
       console.log("Already have a decimal.");
     // Else if buffer is empty, append 0 before "."
-    } else if (this.state.buffer === "") {
+  } else if (this.state.buffer === "" || this.state.operator !== "") {
       this.setState({
         buffer: this.state.buffer += "0.",
+        expression: this.state.expression += this.state.operator + "0.",
         operator: ""
       });
     // Else just append the "."
@@ -86,10 +90,30 @@ class Calculator extends React.Component {
   handleOperators(event) {
     let value = event.target.innerHTML;
 
-    this.setState({
-      operator: value,
-      buffer: value
-    });
+    if (this.state.buffer !== "") {
+      this.setState({
+        operator: value,
+        buffer: value
+      });
+    }
+  }
+
+  handleMath(event) {
+    let expr = this.state.expression;
+    let result = eval(expr);
+    console.log("doing math");
+
+    if (Number.isInteger(result)) {
+      this.setState({
+        buffer: result,
+        expression: result
+      });
+    } else {
+      this.setState({
+        buffer: Number(result.toFixed(4)),
+        expression: result
+      });
+    }
   }
 
   render() {
@@ -154,7 +178,7 @@ class Calculator extends React.Component {
             <div id="decimal" className="chars" onClick={this.handleDecimal}>
               .
             </div>
-            <div id="equals" className="operators">
+            <div id="equals" className="operators" onClick={this.handleMath}>
               =
             </div>
           </div>
