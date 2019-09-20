@@ -1,0 +1,130 @@
+html, body {
+  background-color: #c6b6d1;
+}
+
+.Calc {
+  display: grid;
+  font-family: sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: min-content;
+  border: 7px inset #2e2157;
+  background-color: #2e2157;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  animation: 3.5s fadeIn;
+}
+
+.header {
+  text-align: left;
+  border: solid #f6019d;
+  border-width: 0 0 1px 0;
+  color: #f6019d;
+  color: #F706CF;
+  margin-top: auto;
+  font-family: "Orbitron", sans-serif;
+}
+
+.viewer {
+  display: grid;
+  justify-content: center;
+  /* grid-template-columns: 200px;
+  grid-template-rows: minmax(30px, auto) 35px; */
+  grid-template-columns: 280px;
+  grid-template-rows: minmax(40px, auto) 45px;
+  padding-bottom: 6px;
+  /* grid-gap: 6px; */
+}
+
+.expression,
+.buffer {
+  font-family: "Orbitron", sans-serif;
+  background-color: #2e2157;
+  justify-items: center;
+  text-align: right;
+  /* border: 1px solid yellow; */
+}
+
+.expression {
+  font-size: 20px;
+  color: plum;
+  color: #F9C80E;
+  overflow-wrap: break-word;
+  /* padding-top: 5%; */
+}
+
+.buffer {
+  align-items: start;
+  font-size: 28px;
+  color: white;
+  overflow-wrap: break-word;
+}
+
+.buttons {
+  display: grid;
+  justify-content: center;
+  /* grid-template-columns: 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px; */
+  grid-template-columns: 70px 70px 70px 70px;
+  grid-template-rows: 70px 70px 70px 70px 70px;
+  grid-gap: 6px;
+}
+
+.chars,
+.operators {
+  border: 3px double #241734;
+  padding-top: 10%;
+  transition: background-color 0.1s;
+  box-shadow: 5px 5px 5px#241734;
+  font-family: "Orbitron", sans-serif;
+  color: #241734;
+  font-size: 20px;
+}
+
+.chars:hover,
+.operators:hover {
+  /* background-color: #ff3864; */
+  background-color: #791E94;
+  color: #F9C80E;
+}
+
+.chars:active,
+.operators:active {
+  box-shadow: none;
+  border: none;
+  /* border: 4px double #241734; */
+}
+
+.chars {
+  background-color: #2de2e6;
+}
+
+.operators {
+  /* background-color: plum; */
+  background-color: #F706CF;
+}
+
+#grid {
+  justify-content: center;
+}
+
+#display {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+#clear {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+#slash {
+  grid-column-start: 4;
+  grid-column-end: 4;
+}
+
+#zero {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
