@@ -10,6 +10,11 @@ class Calculator extends React.Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleDigits = this.handleDigits.bind(this);
     this.handleZero = this.handleZero.bind(this);
+    this.handleDecimal = this.handleDecimal.bind(this);
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.buffer);
   }
 
   handleClear(event) {
@@ -25,20 +30,16 @@ class Calculator extends React.Component {
   }
 
   handleDigits(event) {
-    // if "0" in buffer, replace 0 with value
     let value = event.target.innerHTML;
+    // if "0" in buffer, replace 0 with value
 
     if (this.state.buffer === "0") {
       this.setState({
         buffer: value,
-        display: value,
-        expression: value
       });
     } else {
       this.setState({
         buffer: this.state.buffer += value,
-        expression: this.state.expression += value,
-        display: this.state.buffer,
       })
     }
   }
@@ -51,8 +52,6 @@ class Calculator extends React.Component {
     } else {
       this.setState({
         buffer: this.state.buffer += value,
-        expression: this.state.expression += value,
-        display: this.state.buffer
       })
     }
   }
@@ -60,12 +59,26 @@ class Calculator extends React.Component {
   handleDecimal(event) {
     let value = event.target.innerHTML;
 
-    if (!newState.buffer.match(/\./g) && this.state.buffer === "") {
+    // If a decimal already exists in buffer, do nothing.
+    if (this.state.buffer.match(/\./g)) {
+      console.log("Already have a decimal.");
+    // Else if buffer is empty, append 0 before "."
+    } else if (this.state.buffer === "") {
       this.setState({
         buffer: this.state.buffer += "0.",
-        expression: this.state.expression += "0.",
+        operator: ""
+      });
+    // Else just append the "."
+    } else {
+      this.setState({
+        buffer: this.state.buffer += ".",
       })
     }
+  }
+
+  handleOperators(event) {
+    let value = event.target.innerHTML;
+
   }
 
   render() {
@@ -127,7 +140,7 @@ class Calculator extends React.Component {
             <div id="zero" className="chars" onClick={this.handleZero}>
               0
             </div>
-            <div id="decimal" className="chars">
+            <div id="decimal" className="chars" onClick={this.handleDecimal}>
               .
             </div>
             <div id="equals" className="operators">
