@@ -43,6 +43,14 @@ class Calculator extends React.Component {
         expression: this.state.expression += this.state.operator + value,
         operator: ""
       });
+    // if operator in buffer, append operator to expression and reset operator.
+  } else if (this.state.buffer.match(/[\+-\/*]/g)){
+      this.setState({
+        expression: this.state.expression += this.state.operator + value,
+        operator: "",
+        buffer: value
+      })
+    // else, add value to buffer.
     } else {
       this.setState({
         buffer: this.state.buffer += value,
