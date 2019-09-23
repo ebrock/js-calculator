@@ -143,10 +143,12 @@ class Calculator extends React.Component {
   }
 
   handleKeyPress(e) {
-    let clear = [
-      "A",
-      "a"
-    ];
+    e.preventDefault();
+
+    let clear = ["A", "a"];
+    let zero = ["0"];
+    let decimal = ["."];
+
     let nums = {
       "1": "one",
       "2": "two",
@@ -158,12 +160,7 @@ class Calculator extends React.Component {
       "8": "eight",
       "9": "nine"
     };
-    let zero = [
-      "0"
-    ];
-    let decimal = [
-      "."
-    ];
+
     let operators = {
       "": "equals",
       "+": "add",
@@ -176,33 +173,37 @@ class Calculator extends React.Component {
     let all = clear.concat(Object.keys(nums)).concat(zero).concat(decimal).concat(Object.keys(operators));
     console.log("here is all: " + all);
 
-    let code = e.which || e.keyCode;
-    console.log(code);
-    let value = String.fromCharCode(e.which);
-    console.log("Value: " + value + ".");
+    let keypress = String.fromCharCode(e.which);
+    console.log("Value: " + keypress);
 
     // If pressed key in array:
-    if (all.includes(value)) {
+    if (all.includes(keypress) || e.which === 13) {
+      console.log("yes");
       // If pressed key is clear:
-      if (clear.includes(value)) {
+      if (clear.includes(keypress)) {
         console.log("key clear!");
         document.getElementById("clear").click();
       // If pressed key is a digit:
-      } else if (Object.keys(nums).includes(value)) {
+      } else if (Object.keys(nums).includes(keypress)) {
         console.log("key nums!");
-        document.getElementById(nums[value]).click();
+        document.getElementById(nums[keypress]).click();
       // If pressed key is zero:
-      } else if (zero.includes(value)) {
+      } else if (zero.includes(keypress)) {
         console.log("key zero!");
         document.getElementById("zero").click();
       // If pressed key is decimal:
-      } else if (decimal.includes(value)) {
+      } else if (decimal.includes(keypress)) {
         console.log("key dec!");
         document.getElementById("decimal").click();
-      // If pressed key is an operator (+, -, /, *, =):
-      } else if (Object.keys(operators).includes(value)) {
+      // If pressed key is an operator (+, -, /, *):
+      } else if (Object.keys(operators).includes(keypress)) {
         console.log("key ops!");
-        document.getElementById(operators[value]).click();
+        document.getElementById(operators[keypress]).click();
+      // If pressed key is "enter":
+      } else if (e.which === 13) {
+        document.getElementById("equals").click();
+      } else {
+        console.log("Error - Why are you here?");
       }
     }
   }
