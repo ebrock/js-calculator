@@ -13,6 +13,7 @@ class Calculator extends React.Component {
     this.handleDecimal = this.handleDecimal.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
     this.handleMath = this.handleMath.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidUpdate() {
@@ -141,9 +142,52 @@ class Calculator extends React.Component {
     }
   }
 
+  handleKeyPress(e) {
+    e.preventDefault();
+    console.log("here!");
+
+    let clear = "A";
+    let nums = [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"];
+    let zero = "0";
+    let decimal = ".";
+    let operators = [
+      "+",
+      "-",
+      "/",
+      "*"
+    ];
+    let all = clear.concat(nums).concat(zero).concat(decimal).concat(operators);
+    console.log("here is all: " + all);
+
+    let value = e.target.innerHTML;
+
+    if (all.includes(value)) {
+      if (clear.includes(value)) {
+        console.log("key clear!")
+      } else if (nums.includes(value)) {
+        console.log("key nums!")
+      } else if (zero.includes(value)) {
+        console.log("key zero!")
+      } else if (decimal.includes(value)) {
+        console.log("key dec!")
+      } else if (operators.includes(value)) {
+        console.log("key ops!")
+      }
+    }
+  }
+
   render() {
     return (
-      <div className="Calc">
+      <div className="Calc" onKeyPress={event => { this.handleKeyPress(event); }} taxindex={0}>
         <div id="grid" className="container">
           <h4 className="header">WOPR</h4>
           <div className="viewer">
