@@ -34,9 +34,9 @@ class Calculator extends React.Component {
     })
   }
 
+  // TODO: After eval(), entering digits throws error.
   handleDigits(event) {
     let value = event.target.innerHTML;
-
     // if "0" in buffer, replace 0 with value
     if (this.state.buffer === "0") {
       this.setState({
@@ -63,7 +63,6 @@ class Calculator extends React.Component {
 
   handleZero(event) {
     let value = event.target.innerHTML;
-
     // If "0" in buffer, don't add additional zeroes.
     if (this.state.buffer === "0") {
       console.log("do nothing");
@@ -84,6 +83,7 @@ class Calculator extends React.Component {
   }
 
   // TODO: Need to fix buffer for floating number.
+  // TODO: Limit expression decimal to 4 decimal places.
   handleDecimal(event) {
     let value = event.target.innerHTML;
     // If a decimal already exists in buffer, do nothing.
@@ -145,7 +145,7 @@ class Calculator extends React.Component {
   handleKeyPress(e) {
     e.preventDefault();
 
-    let clear = ["A", "a"];
+    let clear = ["A", "a", "C", "c"];
     let zero = ["0"];
     let decimal = ["."];
 
