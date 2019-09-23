@@ -63,8 +63,16 @@ class Calculator extends React.Component {
   handleZero(event) {
     let value = event.target.innerHTML;
 
+    // If "0" in buffer, don't add additional zeroes.
     if (this.state.buffer === "0") {
       console.log("do nothing");
+    // If operator in buffer, add operator to buffer and reset.
+    } else if (this.state.buffer.match(/[\+-\/*]/g)) {
+      this.setState({
+        expression: this.state.expression += this.state.operator + value,
+        operator: "",
+        buffer: value
+      })
     } else {
       this.setState({
         buffer: this.state.buffer += value,
