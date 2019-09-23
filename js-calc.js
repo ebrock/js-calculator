@@ -83,9 +83,9 @@ class Calculator extends React.Component {
     }
   }
 
+  // TODO: Need to fix buffer for floating number.
   handleDecimal(event) {
     let value = event.target.innerHTML;
-
     // If a decimal already exists in buffer, do nothing.
     if (this.state.buffer.match(/\./g)) {
       console.log("Already have a decimal.");
@@ -143,51 +143,73 @@ class Calculator extends React.Component {
   }
 
   handleKeyPress(e) {
-    e.preventDefault();
-    console.log("here!");
-
-    let clear = "A";
-    let nums = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9"];
-    let zero = "0";
-    let decimal = ".";
-    let operators = [
-      "+",
-      "-",
-      "/",
-      "*"
+    let clear = [
+      "A",
+      "a"
     ];
-    let all = clear.concat(nums).concat(zero).concat(decimal).concat(operators);
+    let nums = {
+      "1": "one",
+      "2": "two",
+      "3": "three",
+      "4": "four",
+      "5": "five",
+      "6": "six",
+      "7": "seven",
+      "8": "eight",
+      "9": "nine"
+    };
+    let zero = [
+      "0"
+    ];
+    let decimal = [
+      "."
+    ];
+    let operators = {
+      "": "equals",
+      "+": "add",
+      "-": "subtract",
+      "/": "divide",
+      "*": "multiply"
+    };
+
+    // Concat all key strings.
+    let all = clear.concat(Object.keys(nums)).concat(zero).concat(decimal).concat(Object.keys(operators));
     console.log("here is all: " + all);
 
-    let value = e.target.innerHTML;
+    let code = e.which || e.keyCode;
+    console.log(code);
+    let value = String.fromCharCode(e.which);
+    console.log("Value: " + value + ".");
 
+    // If pressed key in array:
     if (all.includes(value)) {
+      // If pressed key is clear:
       if (clear.includes(value)) {
-        console.log("key clear!")
-      } else if (nums.includes(value)) {
-        console.log("key nums!")
+        console.log("key clear!");
+        document.getElementById("clear").click();
+      // If pressed key is a digit:
+      } else if (Object.keys(nums).includes(value)) {
+        console.log("key nums!");
+        document.getElementById(nums[value]).click();
+      // If pressed key is zero:
       } else if (zero.includes(value)) {
-        console.log("key zero!")
+        console.log("key zero!");
+        document.getElementById("zero").click();
+      // If pressed key is decimal:
       } else if (decimal.includes(value)) {
-        console.log("key dec!")
-      } else if (operators.includes(value)) {
-        console.log("key ops!")
+        console.log("key dec!");
+        document.getElementById("decimal").click();
+      // If pressed key is an operator (+, -, /, *, =):
+      } else if (Object.keys(operators).includes(value)) {
+        console.log("key ops!");
+        document.getElementById(operators[value]).click();
       }
     }
   }
 
   render() {
     return (
-      <div className="Calc" onKeyPress={event => { this.handleKeyPress(event); }} taxindex={0}>
+      <div className="Calc" onKeyPress={this.handleKeyPress} tabindex="1">
         <div id="grid" className="container">
           <h4 className="header">WOPR</h4>
           <div className="viewer">
