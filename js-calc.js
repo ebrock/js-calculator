@@ -44,7 +44,7 @@ class Calculator extends React.Component {
         operator: ""
       });
     // if operator in buffer, append operator to expression and reset operator.
-  } else if (this.state.buffer.match(/[\+-\/*]/g)){
+    } else if (this.state.buffer.match(/[\+-\/*]/g)){
       this.setState({
         expression: this.state.expression += this.state.operator + value,
         operator: "",
@@ -80,6 +80,14 @@ class Calculator extends React.Component {
     // If a decimal already exists in buffer, do nothing.
     if (this.state.buffer.match(/\./g)) {
       console.log("Already have a decimal.");
+    // If an operator exists in buffer,
+    // append operator to expression then append 0 before "."
+    } else if (this.state.buffer.match(/[\+-\/*]/g)) {
+      this.setState({
+        expression: this.state.expression += this.state.operator + "0.",
+        operator: "",
+        buffer: "0."
+      })
     // Else if buffer is empty, append 0 before "."
     } else if (this.state.buffer === "" || this.state.operator !== "") {
       this.setState({
