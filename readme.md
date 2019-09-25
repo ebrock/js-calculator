@@ -1,6 +1,6 @@
 # JS Calculator
 
-JS Calculator is a React App for doing simple calculations, designed and coded bfrom scratch by me.  
+JS Calculator is a React App for doing simple calculations, designed and coded from scratch by me.  
 
 This project is part of freeCodeCamp.org's curriculum, found here: [FreeCodeCamp Calculator](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator/)
 
